@@ -80,8 +80,7 @@ export default function BaseChallenges() {
   });
 
   const handleChallengeClick = (challengeId: string) => {
-    console.log("Opening challenge:", challengeId);
-    // Challenge detail page will be implemented
+    window.location.href = `/challenge/${challengeId}`;
   };
 
   return (

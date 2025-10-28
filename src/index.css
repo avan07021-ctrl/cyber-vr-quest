@@ -107,6 +107,37 @@ All colors MUST be HSL.
       box-shadow: 0 0 40px hsl(var(--cyber-glow) / 0.6);
     }
   }
+  
+  /* VR Mode Enhancements */
+  body.vr-mode {
+    perspective: 1000px;
+  }
+  
+  body.vr-mode * {
+    transform-style: preserve-3d;
+  }
+  
+  body.stereo-mode {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  body.stereo-mode #root {
+    display: contents;
+  }
+  
+  body.stereo-mode #root > * {
+    grid-column: 1 / -1;
+  }
+  
+  .vr-enhanced {
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .vr-enhanced:hover {
+    transform: translateZ(20px);
+  }
 }
 
 @layer base {
