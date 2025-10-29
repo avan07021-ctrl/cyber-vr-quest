@@ -14,7 +14,200 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      challenges: {
+        Row: {
+          challenge_number: number
+          correct_answer: string
+          created_at: string | null
+          description: string
+          difficulty: string
+          full_description: string
+          id: string
+          points: number
+          tags: string[] | null
+          title: string
+        }
+        Insert: {
+          challenge_number: number
+          correct_answer: string
+          created_at?: string | null
+          description: string
+          difficulty: string
+          full_description: string
+          id?: string
+          points: number
+          tags?: string[] | null
+          title: string
+        }
+        Update: {
+          challenge_number?: number
+          correct_answer?: string
+          created_at?: string | null
+          description?: string
+          difficulty?: string
+          full_description?: string
+          id?: string
+          points?: number
+          tags?: string[] | null
+          title?: string
+        }
+        Relationships: []
+      }
+      hints: {
+        Row: {
+          challenge_id: string | null
+          cost: number
+          created_at: string | null
+          hint_number: number
+          id: string
+          text: string
+        }
+        Insert: {
+          challenge_id?: string | null
+          cost: number
+          created_at?: string | null
+          hint_number: number
+          id?: string
+          text: string
+        }
+        Update: {
+          challenge_id?: string | null
+          cost?: number
+          created_at?: string | null
+          hint_number?: number
+          id?: string
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hints_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          display_name: string | null
+          id: string
+          rank: string | null
+          total_points: number | null
+          updated_at: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id: string
+          rank?: string | null
+          total_points?: number | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: string
+          rank?: string | null
+          total_points?: number | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
+      unlocked_hints: {
+        Row: {
+          hint_id: string | null
+          id: string
+          unlocked_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          hint_id?: string | null
+          id?: string
+          unlocked_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          hint_id?: string | null
+          id?: string
+          unlocked_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "unlocked_hints_hint_id_fkey"
+            columns: ["hint_id"]
+            isOneToOne: false
+            referencedRelation: "hints"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "unlocked_hints_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          attempts: number | null
+          challenge_id: string | null
+          completed: boolean | null
+          completed_at: string | null
+          id: string
+          points_earned: number | null
+          started_at: string | null
+          time_spent: number | null
+          user_id: string | null
+        }
+        Insert: {
+          attempts?: number | null
+          challenge_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+          id?: string
+          points_earned?: number | null
+          started_at?: string | null
+          time_spent?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          attempts?: number | null
+          challenge_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+          id?: string
+          points_earned?: number | null
+          started_at?: string | null
+          time_spent?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
